@@ -25,30 +25,8 @@ async function call(endpoint, params = {}, method = 'GET') {
   }
 
   const url = `https://androidmonitor.internetwatchdogs.org/v1/${endpoint}${paramString}`;
-  console.log(url);
-  /*
-  return new Promise((resolve) => {
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-api-key': xApiKey,
-        'x-api-admin-key': xApiKey,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        resolve(data);
-      })
-      .catch((error) => console.error('Error:', error));
-  });
-*/
-  const result = await fetch(url, {
+
+  const response = await fetch(url, {
     method,
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +36,7 @@ async function call(endpoint, params = {}, method = 'GET') {
     },
   });
 
-  return result.json();
+  return response.json();
 }
 
 $(document).ready(async function () {
