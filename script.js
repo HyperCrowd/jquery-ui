@@ -9,6 +9,10 @@ const endpoints = {
   listUpload: 'list/uploads',
 };
 
+async function post(endpoint, params = {}) {
+  return call(endpoint, params, 'POST');
+}
+
 /**
  *
  */
@@ -49,14 +53,13 @@ async function call(endpoint, params = {}, method = 'GET') {
 
 $(document).ready(async function () {
   const loggedIn = await call(endpoints.loggedInOperator);
-  const lists = await call(endpoints.listUids, {}, 'POST');
-  const uploads = await call(
-    endpoints.listUpload,
-    {
-      uid: 681210907,
-    },
-    'POST'
-  );
+  const lists = await post(endpoints.listUids, {});
+  const uploads = await post(endpoints.listUpload, {
+    uid: '681210907',
+    start: '2023-03-16T22:55:40.089Z',
+    end: '2023-04-16T22:55:40.089Z',
+    count: 100,
+  });
 
   // Test
   console.log(
