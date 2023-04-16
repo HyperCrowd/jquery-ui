@@ -49,7 +49,7 @@ async function call(endpoint, params = {}, method = 'GET') {
 
 $(document).ready(async function () {
   const loggedIn = await call(endpoints.loggedInOperator);
-  const lists = await call(endpoints.listUids);
+  const lists = await call(endpoints.listUids, {}, 'POST');
   const uploads = await call(
     endpoints.listUpload,
     {
