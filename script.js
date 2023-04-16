@@ -16,15 +16,18 @@ async function call(endpoint, params = {}, method = 'GET') {
   let paramString = '';
   const parts = [];
 
-  for (const key of Object.keys(params)) {
-    parts.push(`${key}=${encodeURIComponent(params[key])}`);
-  }
+  if (method === 'GET') {
+    for (const key of Object.keys(params)) {
+      parts.push(`${key}=${encodeURIComponent(params[key])}`);
+    }
 
-  if (parts.length > 0) {
-    paramString = '?' + parts.join('&');
+    if (parts.length > 0) {
+      paramString = '?' + parts.join('&');
+    }
   }
 
   const url = `https://androidmonitor.internetwatchdogs.org/v1/${endpoint}${paramString}`;
+
   const command = {
     method,
     headers: {
