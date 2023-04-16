@@ -25,8 +25,7 @@ async function call(endpoint, params = {}, method = 'GET') {
   }
 
   const url = `https://androidmonitor.internetwatchdogs.org/v1/${endpoint}${paramString}`;
-
-  const response = await fetch(url, {
+  const command = {
     method,
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +33,13 @@ async function call(endpoint, params = {}, method = 'GET') {
       'x-api-key': xApiKey,
       'x-api-admin-key': xApiKey,
     },
-  });
+  };
+
+  if (method === 'POST') {
+    command.body = JSON.stringify(params);
+  }
+
+  const response = await fetch(url, command);
 
   return response.json();
 }
@@ -49,11 +54,15 @@ $(document).ready(async function () {
     },
     'POST'
   );
-  console.log({
-    loggedIn,
-    lists,
-    uploads,
-  });
+
+  // Test
+  console.log(
+    JSON.stringify({
+      loggedIn,
+      lists,
+      uploads,
+    })
+  );
 
   /* Your custom JS code goes here */
   // Example dialog box
