@@ -175,7 +175,7 @@ $(document).ready(async function () {
     for (const user of users) {
       html += `<tr>
         <td>${user.uid}</td>
-        <td>${user.created}</td>
+        <td>${new Date(user.created).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })}</td>
       </tr>`;
     }
 
@@ -281,8 +281,8 @@ $(document).ready(async function () {
         <td>${upload.id}</td>
         <td><button onclick="showVideo('${upload.uri_video}');">Watch</button></td>
         <td>${upload.appname}</td>
-        <td>${upload.start}</td>
-        <td>${upload.end}</td>
+        <td>${new Date(upload.start).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })}</td>
+        <td>${new Date(upload.end).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })}</td>
       </tr>`;
     }
 

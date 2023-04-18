@@ -4,13 +4,6 @@
 
 issues:
 
-apiKey "test" is hardwired in to the script. User "logs in" by entering a password/apikey which is tested against 
-"/v1/logged_in/operator" and then stashed in a session variable and then re-used for all subsequent calls.
-
-
-List users has too big of a font. Shrink font and then add horizontal white space so that the UID and the created 
-fields have some space. Shift all timezones to california time
-
 list uploads should have a smaller font. The timezones should be normalized to california time. More horizontal 
 white space. The datetimes should be broken up into date and time with at least one horizontal bar of white space. 
 When a date is put in, the time should be auto populated (start should be 00:00:00 and end should be 23:59:59)
