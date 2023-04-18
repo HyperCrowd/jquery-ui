@@ -159,13 +159,14 @@ $(document).ready(async function () {
     listUsers.prop('disabled', false);
     listUsers.text('Search');
 
+    userResults.hide();
     let html = '';
     for (const user of users) {
       html += `<tr></tr>`;
     }
-    userResults.find('tbody').html(html).show();
 
-    console.log(options, users);
+    userResults.find('tbody').html(html);
+    userResults.show();
   });
 
   // Uploads
@@ -250,18 +251,20 @@ $(document).ready(async function () {
     listUploads.prop('disabled', false);
     listUploads.text('Search');
 
+    uploadResults.hide();
     let html = '';
     for (const upload of uploads) {
       html += `<tr>
-        <tr>${upload.id}</tr>
-        <tr><button onclick="showVideo(${upload.uri_video})">Watch</button></tr>
-        <tr>${upload.appname}</tr>
-        <tr>${upload.start}</tr>
-        <tr>${upload.end}</tr>
+        <td>${upload.id}</td>
+        <td><button onclick="showVideo('${upload.uri_video}');">Watch</button></td>
+        <td>${upload.appname}</td>
+        <td>${upload.start}</td>
+        <td>${upload.end}</td>
       </tr>`;
     }
-    uploadResults.find('tbody').html(html).show();
-    console.log(options, uploads);
+
+    uploadResults.find('tbody').html(html);
+    uploadResults.show();
   });
 });
 
@@ -284,6 +287,7 @@ function getDatetime(date, time, now = new Date()) {
  *
  */
 function showVideo(url) {
+  const videoDialog = $('#video-dialog');
   videoDialog.html(`<video controls>
   <source src="${url}" type="video/mp4">
   Your browser does not support the video tag.
