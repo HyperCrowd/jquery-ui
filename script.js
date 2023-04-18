@@ -164,6 +164,7 @@ $(document).ready(async function () {
   const uploadsEndTime = $('#uploadsEndTime');
   const uploadsUid = $('#uploadsUid');
   const uploadsAppname = $('#uploadsAppname');
+  const uploadsCount = $('#uploadsCount');
 
   userStartTime.timepicker({
     timeFormat: 'h:mm TT',
@@ -224,7 +225,7 @@ $(document).ready(async function () {
         yesterday
       ),
       end: getDatetime(uploadsEndDate.val(), uploadsEndTime.val()),
-      count: 100,
+      count: uploadsCount.val(),
     };
     const uploads = await post(endpoints.listUpload, options);
 
