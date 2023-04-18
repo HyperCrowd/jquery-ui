@@ -1,6 +1,4 @@
-const HOSTURL =
-  'https://androidmonitor.internetwatchdogs.org' ||
-  window.location.protocol + '//' + window.location.host;
+const HOSTURL = window.location.protocol + '//' + window.location.host;
 const xApiKey = 'test';
 
 /**
