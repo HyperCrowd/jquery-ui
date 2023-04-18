@@ -2,6 +2,11 @@
   display: none;
 }
 
+#accordian {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
 #app {
   display: none;
 }

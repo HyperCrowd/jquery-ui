@@ -89,7 +89,7 @@ $(document).ready(async function () {
   });
   dialog.parent().find('.ui-dialog-titlebar-close').hide();
   dialog.find('form').on('submit', async function (event) {
-    // 
+    //
     event.preventDefault();
     const loggedIn = await login(password.val());
     console.log(loggedIn);
@@ -102,11 +102,42 @@ $(document).ready(async function () {
 
   accordion.accordion({
     collapsible: true,
+    heightStyle: 'content',
   });
 
-  $('#datepicker').datepicker({
+  // Dates and Times
+  $('#userStartDate').datepicker({
     showWeek: true,
     firstDay: 1,
+  });
+
+  $('#userEndDate').datepicker({
+    showWeek: true,
+    firstDay: 1,
+  });
+
+  $('#userStartTime').timepicker({
+    timeFormat: 'hh:mm:ss',
+    interval: 15,
+    minTime: '00:00:00',
+    maxTime: '23:59:59',
+    defaultTime: '12:00:00',
+    startTime: '00:00:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true,
+  });
+
+  $('#userEndTime').timepicker({
+    timeFormat: 'hh:mm:ss',
+    interval: 15,
+    minTime: '00:00:00',
+    maxTime: '23:59:59',
+    defaultTime: '12:00:00',
+    startTime: '00:00:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true,
   });
 });
 
