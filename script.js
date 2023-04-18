@@ -221,8 +221,8 @@ $(document).ready(async function () {
 
   listUploads.click(async (e) => {
     listUploads.prop('disabled', true);
-    listUploads.text('Searchingz...');
-
+    listUploads.text('Searching...');
+    console.log('[' + uploadsUid.val() + ']');
     const options = {
       start: getDatetime(
         uploadsStartDate.val(),
