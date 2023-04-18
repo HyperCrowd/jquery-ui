@@ -9,7 +9,7 @@ const endpoints = {
   loggedInOperator: 'v1/logged_in/operator',
   listUids: 'v1/list/uids',
   listUploads: 'v1/list/uploads',
-  videoDownload: 'v1/download/video'
+  videoDownload: 'v1/download/video',
 };
 
 async function post(endpoint, params = {}) {
@@ -32,7 +32,7 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
       paramString = '?' + parts.join('&');
     }
   }
-  const password = localStorage.getItem('absolutelyNotAPassword')
+  const password = localStorage.getItem('absolutelyNotAPassword');
   const url = `${HOSTURL}/${endpoint}${paramString}`;
 
   const command = {
@@ -62,7 +62,7 @@ $(document).ready(async function () {
   const app = $('#app');
   const accordion = $('#accordion');
   const password = $('#password');
-  password.val(localStorage.getItem('absolutelyNotAPassword'))
+  password.val(localStorage.getItem('absolutelyNotAPassword'));
   const listUsers = $('#listUsers');
   const listUploads = $('#listUploads');
 
@@ -90,13 +90,13 @@ $(document).ready(async function () {
     autoOpen: false,
     modal: true,
     closeOnEscape: true,
-    beforeClose: function() {
-      videoDialog.html('')
+    beforeClose: function () {
+      videoDialog.html('');
     },
-    open: function() {
-      var contentWidth = $(this).find(".ui-dialog-content").width();
-      $(this).dialog("option", "width", contentWidth + 100);
-    }
+    open: function () {
+      var contentWidth = $(this).find('.ui-dialog-content').width();
+      $(this).dialog('option', 'width', contentWidth + 100);
+    },
   });
 
   // App
@@ -141,7 +141,7 @@ $(document).ready(async function () {
     startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true
+    scrollbar: true,
   });
 
   userEndTime.timepicker({
@@ -153,24 +153,28 @@ $(document).ready(async function () {
     startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true
+    scrollbar: true,
   });
 
   listUsers.click(async (e) => {
     listUsers.prop('disabled', true);
     listUsers.text('Searching...');
 
-    const start = getDatetime(userStartDate.val(), userStartTime.val(), yesterday),
-    const end = getDatetime(userEndDate.val(), userEndTime.val()),
+    const start = getDatetime(
+      userStartDate.val(),
+      userStartTime.val(),
+      yesterday
+    );
+    const end = getDatetime(userEndDate.val(), userEndTime.val());
 
     const options = {};
 
     if (start !== false) {
-      options.start = start
+      options.start = start;
     }
 
     if (end !== false) {
-      options.end = end
+      options.end = end;
     }
 
     const users = await post(endpoints.listUids, options);
@@ -209,7 +213,7 @@ $(document).ready(async function () {
     startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true
+    scrollbar: true,
   });
 
   uploadsEndTime.timepicker({
@@ -221,7 +225,7 @@ $(document).ready(async function () {
     startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true
+    scrollbar: true,
   });
 
   uploadsStartDate.datepicker({
@@ -253,6 +257,7 @@ $(document).ready(async function () {
       uploadsStartTime.val(),
       yesterday
     );
+
     const end = getDatetime(uploadsEndDate.val(), uploadsEndTime.val());
 
     const options = {
@@ -297,7 +302,10 @@ $(document).ready(async function () {
 });
 
 function getFormattedDate(date) {
-  return new Date(date).toLocaleString("en-US", { timeZone: "America/Los_Angeles" }).toString().replace(', ', ',<br />')
+  return new Date(date)
+    .toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+    .toString()
+    .replace(', ', ',<br />');
 }
 
 /**
@@ -321,8 +329,8 @@ function getDatetime(date, time, now = new Date()) {
  */
 async function showVideo(id) {
   const url = `${HOSTURL}/${endpoints.videoDownload}/${id}`;
-  const video = await call(url)
-  console.log(video)
+  const video = await call(url);
+  console.log(video);
   const videoDialog = $('#video-dialog');
   videoDialog.html(`<video controls>
   <source src="${url}" type="video/mp4">
@@ -363,16 +371,14 @@ function isLoggedIn() {
 async function login(password) {
   // @TODO am I passing up a password here or something?
   const result = await call(endpoints.loggedInOperator, {}, 'GET', {
-    'x-api-key': password
+    'x-api-key': password,
   });
 
   if (result && result.ok === true) {
     localStorage.setItem('absolutelyNotAPassword', password);
     return true;
   } else {
-    $('#password')
-      .val('')
-      .prop('placeholder', 'Bad Password, try again')
+    $('#password').val('').prop('placeholder', 'Bad Password, try again');
     return false;
   }
 }
