@@ -9,6 +9,7 @@ const endpoints = {
   loggedInOperator: 'v1/logged_in/operator',
   listUids: 'v1/list/uids',
   listUploads: 'v1/list/uploads',
+  videoDownload: 'v1/download/video'
 };
 
 async function post(endpoint, params = {}) {
@@ -88,6 +89,10 @@ $(document).ready(async function () {
   videoDialog.dialog({
     autoOpen: false,
     modal: true,
+    closeOnEscape: true,
+    beforeClose: function() {
+      videoDialog.html('')
+    }
   });
 
   // App
@@ -275,7 +280,7 @@ $(document).ready(async function () {
     for (const upload of uploads) {
       html += `<tr>
         <td>${upload.id}</td>
-        <td><button onclick="showVideo('${upload.uri_video}');">Watch</button></td>
+        <td><button onclick="showVideo('${upload.id}');">Watch</button></td>
         <td>${upload.appname}</td>
         <td>${getFormattedDate(upload.start)}</td>
         <td>${getFormattedDate(upload.end)}</td>
@@ -310,7 +315,10 @@ function getDatetime(date, time, now = new Date()) {
 /**
  *
  */
-function showVideo(url) {
+async function showVideo(id) {
+  const url = `${HOSTURL}/${endpoints.videoDownload}/${id}`;
+  const video = await call(url)
+  console.log(video)
   const videoDialog = $('#video-dialog');
   videoDialog.html(`<video controls>
   <source src="${url}" type="video/mp4">
