@@ -52,7 +52,12 @@ async function call(endpoint, params = {}, method = 'GET') {
 }
 
 $(document).ready(async function () {
-  const loggedIn = await call(endpoints.loggedInOperator);
+  const app = $('#app');
+  const accordion = $('#accordion');
+  const username = $('#username');
+  const password = $('#password');
+
+  // const loggedIn = await call(endpoints.loggedInOperator);
   const lists = await post(endpoints.listUids, {});
   const uploads = await post(endpoints.listUpload, {
     uid: '681210907',
@@ -61,35 +66,41 @@ $(document).ready(async function () {
     count: 100,
   });
 
+  for (const item of lists) {
+  }
+
+  for (const upload of uploads) {
+  }
+
   // Test
   console.log(
     JSON.stringify({
-      loggedIn,
+      //loggedIn,
       lists,
       uploads,
     })
   );
 
-  /* Your custom JS code goes here */
-  // Example dialog box
-  $('#dialog-message').dialog({
+  // Login Dialog
+  const dialog = $('#login-dialog');
+  dialog.dialog({
+    autoOpen: true,
     modal: true,
-    buttons: {
-      Ok: function () {
-        $(this).dialog('close');
-      },
-    },
+  });
+  dialog.parent().find('.ui-dialog-titlebar-close').hide();
+  dialog.find('form').on('submit', async function (event) {
+    // 
+    event.preventDefault();
+    const loggedIn = await login(password.val());
+    console.log(loggedIn);
+
+    if (loggedIn) {
+      dialog.dialog('close');
+      app.show();
+    }
   });
 
-  // Example slider
-  $('#slider').slider({
-    value: 50,
-    slide: function (event, ui) {
-      $('#slider-value').text(ui.value);
-    },
-  });
-
-  $('#accordion').accordion({
+  accordion.accordion({
     collapsible: true,
   });
 
@@ -98,3 +109,50 @@ $(document).ready(async function () {
     firstDay: 1,
   });
 });
+
+/**
+ *
+ */
+function setAppVisibility(app, showApp) {
+  if (showApp === true) {
+    app.show();
+  } else {
+    app.hide();
+  }
+}
+
+/**
+ *
+ */
+function isLoggedIn() {
+  const password = localStorage.getItem('absolutelyNotAPassword');
+
+  if (password === null) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+async function login(password) {
+  if (isLoggedIn()) {
+    return true;
+  }
+  // @TODO am I passing up a password here or something?
+  const result = await call(endpoints.loggedInOperator);
+  if (result && result.ok === true) {
+    localStorage.setItem('absolutelyNotAPassword', password);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ *
+ */
+function addAccordianItem(title, data, accordian) {
+  const newItemHTML = `<h3>${title}</h3><div>${data}</div>`;
+  accordian.append(newItemHTML);
+  accordian.accordion('refresh');
+}

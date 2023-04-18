@@ -1,3 +1,7 @@
-#dialog-message {
+#login-dialog {
+  display: none;
+}
+
+#app {
   display: none;
 }

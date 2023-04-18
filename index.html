@@ -1,65 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>My Webpage</title>
-    <meta name="description" content="This is a description of my webpage.">
-    <meta name="author" content="Your Name Here">
-    <meta name="keywords" content="webpage, example, HTML5, SEO">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a description of my webpage." />
+    <meta name="author" content="Your Name Here" />
+    <meta name="keywords" content="webpage, example, HTML5, SEO" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script src="script.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+      integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-3">
-        <header>
-          <h1>Welcome to my webpage!</h1>
-        </header>
+        <div id="app">
+          <!-- accordion -->
+          <div id="accordion">
+            <h3>List Users</h3>
+            <div>
+              <div>Start Date: <input type="text" id="userStartDate" /></div>
+              <div>End Date: <input type="text" class="userEndDate" /></div>
+            </div>
 
-        <!-- datepicker -->
-        <p>Date: <input type="text" id="datepicker"></p>
+            <h3>List Uploads</h3>
+            <div>
+              <p>
+                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit
+                amet purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris
+                turpis porttitor velit, faucibus interdum tellus libero ac
+                justo. Vivamus non quam. In suscipit faucibus urna.
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <!-- Example dialog box -->
-        <div id="dialog-message" title="Important message">
-          <p>This is an example dialog box. Click Ok to close.</p>
-        </div>
-        
-        <!-- accordion -->
-        <div id="accordion">
-        <h3>Section 1</h3>
-        <div>
-          <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-        </div>
-        <h3>Section 2</h3>
-        <div>
-          <p>Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In suscipit faucibus urna. </p>
-        </div>
-        <h3>Section 3</h3>
-        <div>
-          <p>Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui. </p>
-          <ul>
-            <li>List item one</li>
-            <li>List item two</li>
-            <li>List item three</li>
-          </ul>
-        </div>
-        <h3>Section 4</h3>
-        <div>
-          <p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia mauris vel est. </p><p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+        <!-- Login dialog box -->
+        <div id="login-dialog" title="Login">
+          <form>
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              autocomplete="on"
+            /><br /><br />
+
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="on"
+            /><br /><br />
+
+            <input type="submit" value="Log in" />
+          </form>
         </div>
       </div>
-
-    <!-- slider -->
-      <p>
-        <label for="slider">Slider:</label>
-        <span id="slider-value">50</span>
-        <div id="slider"></div>
-      </p>
     </div>
   </body>
 </html>
