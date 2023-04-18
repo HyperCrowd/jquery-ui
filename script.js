@@ -60,7 +60,6 @@ $(document).ready(async function () {
 
   const app = $('#app');
   const accordion = $('#accordion');
-  const username = $('#username');
   const password = $('#password');
   const listUsers = $('#listUsers');
   const listUploads = $('#listUploads');
