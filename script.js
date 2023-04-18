@@ -82,6 +82,13 @@ $(document).ready(async function () {
     }
   });
 
+  // Video Dialog
+  const videoDialog = $('#video-dialog');
+  videoDialog.dialog({
+    autoOpen: false,
+    modal: true,
+  });
+
   // App
   accordion.accordion({
     collapsible: true,
@@ -233,7 +240,7 @@ $(document).ready(async function () {
     listUploads.text('Search');
     console.log(options, uploads);
     for (const upload of uploads) {
-      // @TODO
+      // @TODO showVideo(upload.url)
     }
   });
 });
@@ -251,6 +258,19 @@ function getDatetime(date, time, now = new Date()) {
   }
 
   return new Date(`${date} ${time}`).toISOString();
+}
+
+/**
+ *
+ */
+function showVideo(url) {
+  videoDialog.html(`<video controls>
+  <source src="${url}" type="video/mp4">
+  Your browser does not support the video tag.
+  </video>
+  <br />
+  <a href="${url}">Download</a>`);
+  videoDialog.dialog('open');
 }
 
 /**
