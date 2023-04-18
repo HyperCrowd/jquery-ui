@@ -221,11 +221,9 @@ $(document).ready(async function () {
 
   listUploads.click(async (e) => {
     listUploads.prop('disabled', true);
-    listUploads.text('Searching...');
+    listUploads.text('Searchingz...');
 
     const options = {
-      uid: uploadsUid.val(),
-      appname: uploadsAppname.val(),
       start: getDatetime(
         uploadsStartDate.val(),
         uploadsStartTime.val(),
@@ -234,6 +232,14 @@ $(document).ready(async function () {
       end: getDatetime(uploadsEndDate.val(), uploadsEndTime.val()),
       count: uploadsCount.val(),
     };
+    console.log(uploadsUid.val());
+    if (uploadsUid.val() !== '') {
+      options.uid = uploadsUid.val();
+    }
+
+    if (uploadsAppname.val() !== '') {
+      options.appname = uploadsAppname.val();
+    }
     const uploads = await post(endpoints.listUpload, options);
 
     listUploads.prop('disabled', false);
