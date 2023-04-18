@@ -59,6 +59,7 @@ $(document).ready(async function () {
   const accordion = $('#accordion');
   const username = $('#username');
   const password = $('#password');
+  const listUsers = $('#listUsers');
 
   // const loggedIn = await call(endpoints.loggedInOperator);
   const lists = await post(endpoints.listUids, {});
@@ -108,18 +109,33 @@ $(document).ready(async function () {
     heightStyle: 'content',
   });
 
-  // Dates and Times
-  $('#userStartDate').datepicker({
+  // List Users
+  const userStartDate = $('#userStartDate');
+  const userEndDate = $('#userEndDate');
+  const userStartTime = $('#userStartTime');
+  const userEndTime = $('#userEndTime');
+
+  userStartDate.datepicker({
     showWeek: true,
     firstDay: 1,
+    onSelect: () => {
+      if (userStartTime.val() === '') {
+        userStartTime.val('12:00 AM');
+      }
+    },
   });
 
-  $('#userEndDate').datepicker({
+  userEndDate.datepicker({
     showWeek: true,
     firstDay: 1,
+    onSelect: () => {
+      if (userEndTime.val() === '') {
+        userEndTime.val('11:59 PM');
+      }
+    },
   });
 
-  $('#userStartTime').timepicker({
+  userStartTime.timepicker({
     timeFormat: 'h:mm TT',
     interval: 15,
     minTime: '00:00',
@@ -132,7 +148,7 @@ $(document).ready(async function () {
     ampm: true,
   });
 
-  $('#userEndTime').timepicker({
+  userEndTime.timepicker({
     timeFormat: 'h:mm TT',
     interval: 15,
     minTime: '00:00',
@@ -143,8 +159,37 @@ $(document).ready(async function () {
     dropdown: true,
     scrollbar: true,
     ampm: true,
+  });
+
+  listUsers.click(async (e) => {
+    listUsers.prop('disabled', true);
+    listUsers.text('Searching...');
+    const users = await post(endpoints.listUids, {
+      start: getDatetime(userStartDate.val(), userStartTime.val()),
+      end: getDatetime(userEndDate.val(), userEndTime.val()),
+    });
+    listUsers.prop('disabled', false);
+    listUsers.text('Search');
+    console.log(users);
   });
 });
+
+/**
+ *
+ */
+function getDatetime(date, time) {
+  const now = new Date();
+
+  if (date === undefined || date === false || date === '') {
+    date = `${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`;
+  }
+
+  if (time === undefined || time === false || time === '') {
+    time = `${now.getHours()}:${now.getMinutes()}`;
+  }
+
+  return new Date(`${date} ${time}`).toISOString();
+}
 
 /**
  *
