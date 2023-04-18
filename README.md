@@ -4,8 +4,6 @@
 
 issues:
 
-All optional fields should have light grey text that says "optional" that disappears as soon as the user clicks on it
-
 The video fetching scheme is not correct. Although we are given a uri for each video, I do not want to expose the
 s3 bucket that the video is contained in. Please use the video id (upload.id) and then use that against
 "/v1/download/video/{vid_id}". Assume that this will be either a FileResonse, a StreamingRespose or a redirect to an actual file.
