@@ -92,6 +92,10 @@ $(document).ready(async function () {
     closeOnEscape: true,
     beforeClose: function() {
       videoDialog.html('')
+    },
+    open: function() {
+      var contentWidth = $(this).find(".ui-dialog-content").width();
+      $(this).dialog("option", "width", contentWidth + 100);
     }
   });
 
