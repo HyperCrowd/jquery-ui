@@ -220,6 +220,7 @@ $(document).ready(async function () {
   });
 
   listUploads.click(async (e) => {
+    console.log('YOU CLICKED ME');
     listUploads.prop('disabled', true);
     listUploads.text('Searching...');
     console.log('[' + uploadsUid.val() + ']');
