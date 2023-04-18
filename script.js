@@ -220,10 +220,9 @@ $(document).ready(async function () {
   });
 
   listUploads.click(async (e) => {
-    console.log('YOU CLICKED ME');
     listUploads.prop('disabled', true);
     listUploads.text('Searching...');
-    console.log('[' + uploadsUid.val() + ']');
+
     const options = {
       start: getDatetime(
         uploadsStartDate.val(),
@@ -233,7 +232,7 @@ $(document).ready(async function () {
       end: getDatetime(uploadsEndDate.val(), uploadsEndTime.val()),
       count: uploadsCount.val(),
     };
-    console.log(uploadsUid.val());
+
     if (uploadsUid.val() !== '') {
       options.uid = uploadsUid.val();
     }
@@ -241,7 +240,7 @@ $(document).ready(async function () {
     if (uploadsAppname.val() !== '') {
       options.appname = uploadsAppname.val();
     }
-    const uploads = await post(endpoints.listUpload, options);
+    const uploads = await post(endpoints.listUploads, options);
 
     listUploads.prop('disabled', false);
     listUploads.text('Search');
