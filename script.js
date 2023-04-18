@@ -108,7 +108,7 @@ $(document).ready(async function () {
     firstDay: 1,
     onSelect: () => {
       if (userStartTime.val() === '') {
-        userStartTime.val('12:00 AM');
+        userStartTime.val('00:00:00');
       }
     },
   });
@@ -118,35 +118,33 @@ $(document).ready(async function () {
     firstDay: 1,
     onSelect: () => {
       if (userEndTime.val() === '') {
-        userEndTime.val('11:59 PM');
+        userEndTime.val('23:59:59');
       }
     },
   });
 
   userStartTime.timepicker({
-    timeFormat: 'h:mm TT',
+    timeFormat: 'hh:mm:ss',
     interval: 15,
-    minTime: '00:00',
-    maxTime: '11:59 PM',
-    defaultTime: '12:00',
-    startTime: '00:00',
+    minTime: '00:00:00',
+    maxTime: '23:59:59',
+    defaultTime: '12:00:00',
+    startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true,
-    ampm: true,
+    scrollbar: true
   });
 
   userEndTime.timepicker({
-    timeFormat: 'h:mm TT',
+    timeFormat: 'hh:mm:ss',
     interval: 15,
-    minTime: '00:00',
-    maxTime: '11:59 PM',
-    defaultTime: '12:00',
-    startTime: '00:00',
+    minTime: '00:00:00',
+    maxTime: '23:59:59',
+    defaultTime: '12:00:00',
+    startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true,
-    ampm: true,
+    scrollbar: true
   });
 
   listUsers.click(async (e) => {
@@ -175,7 +173,7 @@ $(document).ready(async function () {
     for (const user of users) {
       html += `<tr>
         <td>${user.uid}</td>
-        <td>${new Date(user.created).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })}</td>
+        <td>${getFormattedDate(user.created)}</td>
       </tr>`;
     }
 
@@ -193,38 +191,36 @@ $(document).ready(async function () {
   const uploadsCount = $('#uploadsCount');
   const uploadResults = $('#uploadResults').hide();
 
-  userStartTime.timepicker({
-    timeFormat: 'h:mm TT',
+  uploadsStartTime.timepicker({
+    timeFormat: 'hh:mm:ss',
     interval: 15,
-    minTime: '00:00',
-    maxTime: '11:59 PM',
-    defaultTime: '12:00',
-    startTime: '00:00',
+    minTime: '00:00:00',
+    maxTime: '23:59:59',
+    defaultTime: '12:00:00',
+    startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true,
-    ampm: true,
+    scrollbar: true
   });
 
-  userEndTime.timepicker({
-    timeFormat: 'h:mm TT',
+  uploadsEndTime.timepicker({
+    timeFormat: 'hh:mm:ss',
     interval: 15,
-    minTime: '00:00',
-    maxTime: '11:59 PM',
-    defaultTime: '12:00',
-    startTime: '00:00',
+    minTime: '00:00:00',
+    maxTime: '23:59:59',
+    defaultTime: '12:00:00',
+    startTime: '00:00:00',
     dynamic: false,
     dropdown: true,
-    scrollbar: true,
-    ampm: true,
+    scrollbar: true
   });
 
   uploadsStartDate.datepicker({
     showWeek: true,
     firstDay: 1,
     onSelect: () => {
-      if (userStartTime.val() === '') {
-        userStartTime.val('12:00 AM');
+      if (uploadsStartTime.val() === '') {
+        uploadsStartTime.val('00:00:00');
       }
     },
   });
@@ -233,8 +229,8 @@ $(document).ready(async function () {
     showWeek: true,
     firstDay: 1,
     onSelect: () => {
-      if (userEndTime.val() === '') {
-        userEndTime.val('11:59 PM');
+      if (uploadsEndTime.val() === '') {
+        uploadsEndTime.val('23:59:59');
       }
     },
   });
@@ -281,8 +277,8 @@ $(document).ready(async function () {
         <td>${upload.id}</td>
         <td><button onclick="showVideo('${upload.uri_video}');">Watch</button></td>
         <td>${upload.appname}</td>
-        <td>${new Date(upload.start).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })}</td>
-        <td>${new Date(upload.end).toLocaleString("en-US", { timeZone: "America/Los_Angeles" })}</td>
+        <td>${getFormattedDate(upload.start)}</td>
+        <td>${getFormattedDate(upload.end)}</td>
       </tr>`;
     }
 
@@ -290,6 +286,10 @@ $(document).ready(async function () {
     uploadResults.show();
   });
 });
+
+function getFormattedDate(date) {
+  return new Date(date).toLocaleString("en-US", { timeZone: "America/Los_Angeles" }).toString().replace(', ', ',<br />')
+}
 
 /**
  *
@@ -301,7 +301,7 @@ function getDatetime(date, time, now = new Date()) {
   }
 
   if (time === undefined || time === false || time === '') {
-    time = `${now.getHours()}:${now.getMinutes()}`;
+    time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
   }
 
   return new Date(`${date} ${time}`).toISOString();
