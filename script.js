@@ -1,12 +1,15 @@
+const HOSTURL =
+  'https://androidmonitor.internetwatchdogs.org' ||
+  window.location.protocol + '//' + window.location.host;
 const xApiKey = 'test';
 
 /**
  *
  */
 const endpoints = {
-  loggedInOperator: 'logged_in/operator',
-  listUids: 'list/uids',
-  listUpload: 'list/uploads',
+  loggedInOperator: 'v1/logged_in/operator',
+  listUids: 'v1/list/uids',
+  listUpload: 'v1/list/uploads',
 };
 
 async function post(endpoint, params = {}) {
@@ -30,7 +33,7 @@ async function call(endpoint, params = {}, method = 'GET') {
     }
   }
 
-  const url = `https://androidmonitor.internetwatchdogs.org/v1/${endpoint}${paramString}`;
+  const url = `${HOSTURL}/${endpoint}${paramString}`;
 
   const command = {
     method,
