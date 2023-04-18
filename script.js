@@ -100,6 +100,7 @@ $(document).ready(async function () {
   const userEndDate = $('#userEndDate');
   const userStartTime = $('#userStartTime');
   const userEndTime = $('#userEndTime');
+  const userResults = $('#userResults').hide();
 
   userStartDate.datepicker({
     showWeek: true,
@@ -158,9 +159,12 @@ $(document).ready(async function () {
     listUsers.prop('disabled', false);
     listUsers.text('Search');
 
+    let html = '';
     for (const user of users) {
-      // @TODO
+      html += `<tr></tr>`;
     }
+    userResults.find('tbody').html(html).show();
+
     console.log(options, users);
   });
 
@@ -172,6 +176,7 @@ $(document).ready(async function () {
   const uploadsUid = $('#uploadsUid');
   const uploadsAppname = $('#uploadsAppname');
   const uploadsCount = $('#uploadsCount');
+  const uploadResults = $('#uploadResults').hide();
 
   userStartTime.timepicker({
     timeFormat: 'h:mm TT',
@@ -244,10 +249,19 @@ $(document).ready(async function () {
 
     listUploads.prop('disabled', false);
     listUploads.text('Search');
-    console.log(options, uploads);
+
+    let html = '';
     for (const upload of uploads) {
-      // @TODO showVideo(upload.url)
+      html += `<tr>
+        <tr>${upload.id}</tr>
+        <tr><button onclick="showVideo(${upload.uri_video})">Watch</button></tr>
+        <tr>${upload.appname}</tr>
+        <tr>${upload.start}</tr>
+        <tr>${upload.end}</tr>
+      </tr>`;
     }
+    uploadResults.find('tbody').html(html).show();
+    console.log(options, uploads);
   });
 });
 
