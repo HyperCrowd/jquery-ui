@@ -9,7 +9,7 @@ const xApiKey = 'test';
 const endpoints = {
   loggedInOperator: 'v1/logged_in/operator',
   listUids: 'v1/list/uids',
-  listUpload: 'v1/list/uploads',
+  listUploads: 'v1/list/uploads',
 };
 
 async function post(endpoint, params = {}) {
@@ -55,35 +55,15 @@ async function call(endpoint, params = {}, method = 'GET') {
 }
 
 $(document).ready(async function () {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
   const app = $('#app');
   const accordion = $('#accordion');
   const username = $('#username');
   const password = $('#password');
   const listUsers = $('#listUsers');
-
-  // const loggedIn = await call(endpoints.loggedInOperator);
-  const lists = await post(endpoints.listUids, {});
-  const uploads = await post(endpoints.listUpload, {
-    uid: '681210907',
-    start: '2023-03-16T22:55:40.089Z',
-    end: '2023-04-16T22:55:40.089Z',
-    count: 100,
-  });
-
-  for (const item of lists) {
-  }
-
-  for (const upload of uploads) {
-  }
-
-  // Test
-  console.log(
-    JSON.stringify({
-      //loggedIn,
-      lists,
-      uploads,
-    })
-  );
+  const listUploads = $('#listUploads');
 
   // Login Dialog
   const dialog = $('#login-dialog');
@@ -96,7 +76,6 @@ $(document).ready(async function () {
     //
     event.preventDefault();
     const loggedIn = await login(password.val());
-    console.log(loggedIn);
 
     if (loggedIn) {
       dialog.dialog('close');
@@ -104,6 +83,7 @@ $(document).ready(async function () {
     }
   });
 
+  // App
   accordion.accordion({
     collapsible: true,
     heightStyle: 'content',
@@ -164,22 +144,102 @@ $(document).ready(async function () {
   listUsers.click(async (e) => {
     listUsers.prop('disabled', true);
     listUsers.text('Searching...');
-    const users = await post(endpoints.listUids, {
-      start: getDatetime(userStartDate.val(), userStartTime.val()),
+    const options = {
+      start: getDatetime(userStartDate.val(), userStartTime.val(), yesterday),
       end: getDatetime(userEndDate.val(), userEndTime.val()),
-    });
+    };
+    const users = await post(endpoints.listUids, options);
     listUsers.prop('disabled', false);
     listUsers.text('Search');
-    console.log(users);
+
+    for (const user of users) {
+    }
+    console.log(options, users);
+  });
+
+  // Uploads
+  const uploadsStartDate = $('#uploadsStartDate');
+  const uploadsEndDate = $('#uploadsEndDate');
+  const uploadsStartTime = $('#uploadsStartTime');
+  const uploadsEndTime = $('#uploadsEndTime');
+  const uploadsUid = $('#uploadsUid');
+  const uploadsAppname = $('#uploadsAppname');
+
+  userStartTime.timepicker({
+    timeFormat: 'h:mm TT',
+    interval: 15,
+    minTime: '00:00',
+    maxTime: '11:59 PM',
+    defaultTime: '12:00',
+    startTime: '00:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true,
+    ampm: true,
+  });
+
+  userEndTime.timepicker({
+    timeFormat: 'h:mm TT',
+    interval: 15,
+    minTime: '00:00',
+    maxTime: '11:59 PM',
+    defaultTime: '12:00',
+    startTime: '00:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true,
+    ampm: true,
+  });
+
+  uploadsStartDate.datepicker({
+    showWeek: true,
+    firstDay: 1,
+    onSelect: () => {
+      if (userStartTime.val() === '') {
+        userStartTime.val('12:00 AM');
+      }
+    },
+  });
+
+  uploadsEndDate.datepicker({
+    showWeek: true,
+    firstDay: 1,
+    onSelect: () => {
+      if (userEndTime.val() === '') {
+        userEndTime.val('11:59 PM');
+      }
+    },
+  });
+
+  listUploads.click(async (e) => {
+    listUploads.prop('disabled', true);
+    listUploads.text('Searching...');
+
+    const options = {
+      uid: uploadsUid.val(),
+      appname: uploadsAppname.val(),
+      start: getDatetime(
+        uploadsStartDate.val(),
+        uploadsStartTime.val(),
+        yesterday
+      ),
+      end: getDatetime(uploadsEndDate.val(), uploadsEndTime.val()),
+      count: 100,
+    };
+    const uploads = await post(endpoints.listUpload, options);
+
+    listUploads.prop('disabled', false);
+    listUploads.text('Search');
+    console.log(options, uploads);
+    for (const upload of uploads) {
+    }
   });
 });
 
 /**
  *
  */
-function getDatetime(date, time) {
-  const now = new Date();
-
+function getDatetime(date, time, now = new Date()) {
   if (date === undefined || date === false || date === '') {
     date = `${now.getMonth()}/${now.getDate()}/${now.getFullYear()}`;
   }
