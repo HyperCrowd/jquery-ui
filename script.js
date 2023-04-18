@@ -1,7 +1,6 @@
 const HOSTURL =
   'https://androidmonitor.internetwatchdogs.org' ||
   window.location.protocol + '//' + window.location.host;
-const xApiKey = 'test';
 
 /**
  *
@@ -19,7 +18,7 @@ async function post(endpoint, params = {}) {
 /**
  *
  */
-async function call(endpoint, params = {}, method = 'GET') {
+async function call(endpoint, params = {}, method = 'GET', headers = {}) {
   let paramString = '';
   const parts = [];
 
@@ -32,7 +31,7 @@ async function call(endpoint, params = {}, method = 'GET') {
       paramString = '?' + parts.join('&');
     }
   }
-
+  const password = localStorage.getItem('absolutelyNotAPassword')
   const url = `${HOSTURL}/${endpoint}${paramString}`;
 
   const command = {
@@ -40,8 +39,9 @@ async function call(endpoint, params = {}, method = 'GET') {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      'x-api-key': xApiKey,
-      'x-api-admin-key': xApiKey,
+      'x-api-key': password,
+      'x-api-admin-key': password,
+      ...headers,
     },
   };
 
@@ -61,6 +61,7 @@ $(document).ready(async function () {
   const app = $('#app');
   const accordion = $('#accordion');
   const password = $('#password');
+  password.val(localStorage.getItem('absolutelyNotAPassword'))
   const listUsers = $('#listUsers');
   const listUploads = $('#listUploads');
 
@@ -348,15 +349,18 @@ function isLoggedIn() {
  *
  */
 async function login(password) {
-  if (isLoggedIn()) {
-    return true;
-  }
   // @TODO am I passing up a password here or something?
-  const result = await call(endpoints.loggedInOperator);
+  const result = await call(endpoints.loggedInOperator, {}, 'GET', {
+    'x-api-key': password
+  });
+
   if (result && result.ok === true) {
     localStorage.setItem('absolutelyNotAPassword', password);
     return true;
   } else {
+    $('#password')
+      .val('')
+      .prop('placeholder', 'Bad Password, try again')
     return false;
   }
 }
