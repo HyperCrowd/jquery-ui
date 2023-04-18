@@ -10,3 +10,7 @@
 #app {
   display: none;
 }
+
+.time {
+  width: 5em;
+}

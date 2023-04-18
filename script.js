@@ -120,27 +120,29 @@ $(document).ready(async function () {
   });
 
   $('#userStartTime').timepicker({
-    timeFormat: 'hh:mm:ss',
+    timeFormat: 'h:mm TT',
     interval: 15,
-    minTime: '00:00:00',
-    maxTime: '23:59:59',
-    defaultTime: '12:00:00',
-    startTime: '00:00:00',
+    minTime: '00:00',
+    maxTime: '11:59 PM',
+    defaultTime: '12:00',
+    startTime: '00:00',
     dynamic: false,
     dropdown: true,
     scrollbar: true,
+    ampm: true,
   });
 
   $('#userEndTime').timepicker({
-    timeFormat: 'hh:mm:ss',
+    timeFormat: 'h:mm TT',
     interval: 15,
-    minTime: '00:00:00',
-    maxTime: '23:59:59',
-    defaultTime: '12:00:00',
-    startTime: '00:00:00',
+    minTime: '00:00',
+    maxTime: '11:59 PM',
+    defaultTime: '12:00',
+    startTime: '00:00',
     dynamic: false,
     dropdown: true,
     scrollbar: true,
+    ampm: true,
   });
 });
 
