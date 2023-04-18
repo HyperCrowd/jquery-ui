@@ -152,6 +152,7 @@ $(document).ready(async function () {
     listUsers.text('Search');
 
     for (const user of users) {
+      // @TODO
     }
     console.log(options, users);
   });
@@ -231,6 +232,7 @@ $(document).ready(async function () {
     listUploads.text('Search');
     console.log(options, uploads);
     for (const upload of uploads) {
+      // @TODO
     }
   });
 });
@@ -274,6 +276,9 @@ function isLoggedIn() {
   }
 }
 
+/**
+ *
+ */
 async function login(password) {
   if (isLoggedIn()) {
     return true;
