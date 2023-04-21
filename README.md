@@ -57,12 +57,3 @@ accordian element if the password is empty or doesn't validate.
 
 The motivation here is that this jquery form that you've created will be the new default page, replacing /docs currently
 serving as the default redirect.
-
-## Styling changes (Optional)
-
-Please use the a header graphic. See telegram. Match the background color in the div to that of the image margins so
-that the image can appear to be stretched. Set the height of this image to be 200 pixels.
-
-Use a dark css theme instead of the white background with bright colors, which will be easier on the eyes for operators
-spending significant time evaluating data. Please select appropriate colors from the header image to be the buttons and
-other UI element colors. Select colors for high contrast against the background.
