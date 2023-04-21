@@ -7,31 +7,72 @@ html,
   color: lightgray;
 }
 
-.ui-accordion-header.ui-state-active {
-  background-color: #336699;
-  color: lightgray;
+#layout,
+#menu {
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
-/* Change the icon color */
-.ui-accordion-header.ui-state-active .ui-icon {
-  background-color: #336699;
-  color: lightgray;
+#layout {
+  position: relative;
+  left: 0;
+  padding-left: 0;
 }
 
-/* Change the active header color */
-.ui-accordion-header {
-  background-color: #144455;
-  color: rgb(146, 146, 146);
+@keyframes goLeft {
+  from {
+    margin-left: 0px;
+  }
+  to {
+    margin-left: -200px;
+  }
 }
 
-/* Change the active icon color */
-.ui-accordion-header .ui-icon {
-  background-color: #144455;
-  color: rgb(146, 146, 146);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#login-dialog {
-  display: none;
+.movingLeft {
+  animation-name: goLeft;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.fadingIn {
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+#menu {
+  margin-left: 0px; /* "#menu" width */
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000; /* so the menu or its navicon stays above all content */
+  background: #191818;
+  overflow-y: auto;
+}
+
+#login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#loggedIn {
+  opacity: 0;
 }
 
 #accordian {
@@ -39,12 +80,35 @@ html,
   overflow-y: scroll;
 }
 
-#app {
-  display: none;
+.ui-accordion-header.ui-state-active {
+  background-color: #336699;
+  color: lightgray;
+}
+
+.ui-accordion-header.ui-state-active .ui-icon {
+  background-color: #336699;
+  color: lightgray;
+}
+
+.ui-accordion-header {
+  background-color: #144455;
+  color: rgb(146, 146, 146);
+}
+
+.ui-accordion-header .ui-icon {
+  background-color: #144455;
+  color: rgb(146, 146, 146);
 }
 
 .time {
   width: 5em;
+}
+
+input::placeholder {
+  color: #aaa;
+  opacity: 0.5;
+  font-style: italic;
+  font-size: 0.8em;
 }
 
 .button-success,
@@ -97,13 +161,6 @@ table td {
 table th {
   background-color: #4caf50;
   color: white;
-}
-
-input::placeholder {
-  color: #aaa;
-  opacity: 0.5;
-  font-style: italic;
-  font-size: 0.8em;
 }
 
 .logo {

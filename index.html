@@ -28,11 +28,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-3">
-        <div id="app">
-          <!-- Login  -->
-          <div id="login-frame">
+        <div id="layout">
+          <div id="menu" class="notLoggedIn">
+            <!-- Login  -->
             <div id="login-form">
               <form>
                 <input
@@ -41,147 +39,154 @@
                   id="password"
                   name="password"
                   autocomplete="on"
+                  class="time"
                 /><br /><br />
 
-                <input type="submit" value="Log in" />
+                <input type="submit" value="Log in" class="button-success"/>
               </form>
-            </div>
-            <div id="login-area">
-              <div class="logo"></div>
-            </div>
+            </div>           
           </div>
-          <!-- accordion -->
-          <div id="app-frame">
-            <div class="logo"></div>
-            <div id="accordion">
-              <h3>List Users</h3>
-              <div class="dark darkText">
-                <div>
-                  Start Date:
-                  <input
-                    type="text"
-                    id="userStartDate"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                  <input
-                    type="text"
-                    id="userStartTime"
-                    class="time"
-                    placeholder="Optional"
-                  />
+          <div id="main">
+            <div class="pure-g">
+              <div class="pure-u-1 pure-u-md-1-3">
+                <div class="logo"></div>
+                <div class="notLoggedIn">
+                  <p>Go</p>
                 </div>
-                <br />
-                <div>
-                  End Date:
-                  <input
-                    type="text"
-                    id="userEndDate"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                  <input
-                    type="text"
-                    id="userEndTime"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                </div>
-                <br />
-                <button class="button-success pure-button" id="listUsers">
-                  Search
-                </button>
-                <table id="userResults">
-                  <thead>
-                    <tr>
-                      <th>UID</th>
-                      <th>Created</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
+                <div id="loggedIn">
+                  <!-- accordion -->
+                  <div id="accordion">
+                    <h3>List Users</h3>
+                    <div class="dark darkText">
+                      <div>
+                        Start Date:
+                        <input
+                          type="text"
+                          id="userStartDate"
+                          class="time"
+                          placeholder="Optional"
+                        />
+                        <input
+                          type="text"
+                          id="userStartTime"
+                          class="time"
+                          placeholder="Optional"
+                        />
+                      </div>
+                      <br />
+                      <div>
+                        End Date:
+                        <input
+                          type="text"
+                          id="userEndDate"
+                          class="time"
+                          placeholder="Optional"
+                        />
+                        <input
+                          type="text"
+                          id="userEndTime"
+                          class="time"
+                          placeholder="Optional"
+                        />
+                      </div>
+                      <br />
+                      <button class="button-success pure-button" id="listUsers">
+                        Search
+                      </button>
+                      <table id="userResults">
+                        <thead>
+                          <tr>
+                            <th>UID</th>
+                            <th>Created</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
 
-              <h3>List Uploads</h3>
-              <div class="dark darkText">
-                <div>
-                  <div>
-                    Count:
-                    <input
-                      type="text"
-                      id="uploadsCount"
-                      class="time"
-                      value="100"
-                    />
+                    <h3>List Uploads</h3>
+                    <div class="dark darkText">
+                      <div>
+                        <div>
+                          Count:
+                          <input
+                            type="text"
+                            id="uploadsCount"
+                            class="time"
+                            value="100"
+                          />
+                        </div>
+                        <br />
+                        <div>
+                          UID:
+                          <input
+                            type="text"
+                            id="uploadsUid"
+                            class="time"
+                            placeholder="Optional"
+                          />
+                        </div>
+                        <br />
+                        <div>
+                          Appname:
+                          <input
+                            type="text"
+                            id="uploadsAppname"
+                            class="time"
+                            placeholder="Optional"
+                          />
+                        </div>
+                        <br />
+                        <div>
+                          Start Date:
+                          <input
+                            type="text"
+                            id="uploadsStartDate"
+                            class="time"
+                            placeholder="Optional"
+                          />
+                          <input
+                            type="text"
+                            id="uploadsStartTime"
+                            class="time"
+                            placeholder="Optional"
+                          />
+                        </div>
+                        <br />
+                        <div>
+                          End Date:
+                          <input
+                            type="text"
+                            id="uploadsEndDate"
+                            class="time"
+                            placeholder="Optional"
+                          />
+                          <input
+                            type="text"
+                            id="uploadsEndTime"
+                            class="time"
+                            placeholder="Optional"
+                          />
+                        </div>
+                        <br />
+                        <button class="button-success pure-button" id="listUploads">
+                          Search
+                        </button>
+                        <table id="uploadResults">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>URI</th>
+                              <th>Appname</th>
+                              <th>Start</th>
+                              <th>End</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
-                  <br />
-                  <div>
-                    UID:
-                    <input
-                      type="text"
-                      id="uploadsUid"
-                      class="time"
-                      placeholder="Optional"
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    Appname:
-                    <input
-                      type="text"
-                      id="uploadsAppname"
-                      class="time"
-                      placeholder="Optional"
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    Start Date:
-                    <input
-                      type="text"
-                      id="uploadsStartDate"
-                      class="time"
-                      placeholder="Optional"
-                    />
-                    <input
-                      type="text"
-                      id="uploadsStartTime"
-                      class="time"
-                      placeholder="Optional"
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    End Date:
-                    <input
-                      type="text"
-                      id="uploadsEndDate"
-                      class="time"
-                      placeholder="Optional"
-                    />
-                    <input
-                      type="text"
-                      id="uploadsEndTime"
-                      class="time"
-                      placeholder="Optional"
-                    />
-                  </div>
-                  <br />
-                  <button class="button-success pure-button" id="listUploads">
-                    Search
-                  </button>
-                  <table id="uploadResults">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>URI</th>
-                        <th>Appname</th>
-                        <th>Start</th>
-                        <th>End</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
                 </div>
               </div>
             </div>

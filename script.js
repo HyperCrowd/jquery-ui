@@ -56,33 +56,33 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
 }
 
 $(document).ready(async function () {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  const app = $('#app');
+  const app = $('#loggedIn');
+  const landing = $('.notLoggedIn');
+  const loginForm = $('#login-form');
   const accordion = $('#accordion');
   const password = $('#password');
-  password.val(sessionStorage.getItem('absolutelyNotAPassword'));
   const listUsers = $('#listUsers');
   const listUploads = $('#listUploads');
 
-  // Login Dialog
-  const dialog = $('#login-dialog');
-  dialog.dialog({
-    autoOpen: true,
-    modal: true,
-  });
-  dialog.parent().find('.ui-dialog-titlebar-close').hide();
-  dialog.find('form').on('submit', async function (event) {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  // Login
+  loginForm.find('form').on('submit', async function (event) {
     //
     event.preventDefault();
     const loggedIn = await login(password.val());
 
     if (loggedIn) {
-      dialog.dialog('close');
-      app.show();
+      landing.addClass('movingLeft').on('animationend', function () {
+        $(this).hide();
+      });
+      app.addClass('fadingIn').on('animationend', function () {
+        $(this).show();
+      });
     }
   });
+  password.val(sessionStorage.getItem('absolutelyNotAPassword'));
 
   // Video Dialog
   const videoDialog = $('#video-dialog');
@@ -99,7 +99,7 @@ $(document).ready(async function () {
     },
   });
 
-  // App
+  // Main
   accordion.accordion({
     collapsible: true,
     heightStyle: 'content',
