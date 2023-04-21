@@ -32,7 +32,7 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
       paramString = '?' + parts.join('&');
     }
   }
-  const password = localStorage.getItem('absolutelyNotAPassword');
+  const password = sessionStorage.getItem('absolutelyNotAPassword');
   const url = `${HOSTURL}/${endpoint}${paramString}`;
 
   const command = {
@@ -62,7 +62,7 @@ $(document).ready(async function () {
   const app = $('#app');
   const accordion = $('#accordion');
   const password = $('#password');
-  password.val(localStorage.getItem('absolutelyNotAPassword'));
+  password.val(sessionStorage.getItem('absolutelyNotAPassword'));
   const listUsers = $('#listUsers');
   const listUploads = $('#listUploads');
 
@@ -356,7 +356,7 @@ function setAppVisibility(app, showApp) {
  *
  */
 function isLoggedIn() {
-  const password = localStorage.getItem('absolutelyNotAPassword');
+  const password = sessionStorage.getItem('absolutelyNotAPassword');
 
   if (password === null) {
     return false;
@@ -375,7 +375,7 @@ async function login(password) {
   });
 
   if (result && result.ok === true) {
-    localStorage.setItem('absolutelyNotAPassword', password);
+    sessionStorage.setItem('absolutelyNotAPassword', password);
     return true;
   } else {
     $('#password').val('').prop('placeholder', 'Bad Password, try again');
