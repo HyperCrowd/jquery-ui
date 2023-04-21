@@ -1,3 +1,35 @@
+html,
+.dark {
+  background-color: #020e15;
+}
+
+.darkText {
+  color: lightgray;
+}
+
+.ui-accordion-header.ui-state-active {
+  background-color: #336699;
+  color: lightgray;
+}
+
+/* Change the icon color */
+.ui-accordion-header.ui-state-active .ui-icon {
+  background-color: #336699;
+  color: lightgray;
+}
+
+/* Change the active header color */
+.ui-accordion-header {
+  background-color: #144455;
+  color: rgb(146, 146, 146);
+}
+
+/* Change the active icon color */
+.ui-accordion-header .ui-icon {
+  background-color: #144455;
+  color: rgb(146, 146, 146);
+}
+
 #login-dialog {
   display: none;
 }
@@ -25,7 +57,7 @@
 }
 
 .button-success {
-  background: rgb(28, 184, 65);
+  background: #79945a;
   /* this is a green */
 }
 
