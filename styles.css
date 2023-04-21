@@ -16,10 +16,9 @@ html,
   transition: all 0.2s ease-out;
 }
 
-#layout {
-  position: relative;
-  left: 0;
-  padding-left: 0;
+#main {
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 @keyframes goLeft {
@@ -27,7 +26,7 @@ html,
     margin-left: 0px;
   }
   to {
-    margin-left: -200px;
+    margin-left: -125px;
   }
 }
 
@@ -54,7 +53,7 @@ html,
 
 #menu {
   margin-left: 0px; /* "#menu" width */
-  width: 200px;
+  width: 125px;
   position: fixed;
   top: 0;
   left: 0;
