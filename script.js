@@ -33,7 +33,10 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
     }
   }
   const password = sessionStorage.getItem('absolutelyNotAPassword');
-  const url = `${HOSTURL}/${endpoint}${paramString}`;
+  const url =
+    params._overrideUrl === true
+      ? endpoint
+      : `${HOSTURL}/${endpoint}${paramString}`;
 
   const command = {
     method,
@@ -52,6 +55,10 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
 
   const response = await fetch(url, command);
 
+  console.log([endpoint, endpoints.videoDownload]);
+  if (endpoint.indexOf(endpoints.videoDownload) > -1) {
+    console.log(await response.blob());
+  }
   return response.json();
 }
 
@@ -295,7 +302,9 @@ $(document).ready(async function () {
     for (const upload of uploads) {
       html += `<tr>
         <td>${upload.id}</td>
-        <td><button onclick="showVideo('${upload.id}');">Watch</button></td>
+        <td><button onclick="showVideo('${upload.id}' id="watch${
+        upload.id
+      }");">Watch</button></td>
         <td>${upload.appname}</td>
         <td>${getFormattedDate(upload.start)}</td>
         <td>${getFormattedDate(upload.end)}</td>
@@ -334,9 +343,14 @@ function getDatetime(date, time, now = new Date()) {
  *
  */
 async function showVideo(id) {
-  const url = `${HOSTURL}/${endpoints.videoDownload}/${id}`;
-  const video = await call(url);
+  //const button = $(`#watch${id}`)
+  //button.prop('disabled', true);
+  const url = `${HOSTURL}/${endpoints.videoDownload}/${71 || id}`;
+  const video = await call(url, {
+    _overrideUrl: true,
+  });
   console.log(video);
+  //button.prop('disabled', false);
   const videoDialog = $('#video-dialog');
   videoDialog.html(`<video controls>
   <source src="${url}" type="video/mp4">
@@ -347,7 +361,10 @@ async function showVideo(id) {
   videoDialog.dialog('open');
 }
 
-async function showUploads(id) {
+/**
+ *
+ */
+function showUploads(id) {
   const accordion = $('#accordion');
   const uploadsUid = $('#uploadsUid');
   const listUploads = $('#listUploads');
