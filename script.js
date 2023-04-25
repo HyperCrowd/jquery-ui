@@ -70,7 +70,6 @@ $(document).ready(async function () {
 
   // Login
   loginForm.find('form').on('submit', async function (event) {
-    console.log('wat');
     event.preventDefault();
 
     const emailVal = email.val();
@@ -81,7 +80,6 @@ $(document).ready(async function () {
     const loggedIn = await login(emailVal, password.val());
 
     if (loggedIn) {
-      console.log(loggedIn);
       accordion.accordion({
         active: 1,
       });
@@ -191,7 +189,9 @@ $(document).ready(async function () {
     let html = '';
     for (const user of users) {
       html += `<tr>
-        <td>${user.uid}</td>
+        <td><button onclick="showUploads('${user.uid}');">${
+        user.uid
+      }</button></td>
         <td>${getFormattedDate(user.created)}</td>
       </tr>`;
     }
@@ -345,6 +345,18 @@ async function showVideo(id) {
   <br />
   <a href="${url}">Download</a>`);
   videoDialog.dialog('open');
+}
+
+async function showUploads(id) {
+  const accordion = $('#accordion');
+  const uploadsUid = $('#uploadsUid');
+  const listUploads = $('#listUploads');
+
+  uploadsUid.val(id.toString());
+  accordion.accordion({
+    active: 2,
+  });
+  listUploads.click();
 }
 
 /**
