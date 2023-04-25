@@ -55,11 +55,11 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
 
   const response = await fetch(url, command);
 
-  console.log([endpoint, endpoints.videoDownload]);
   if (endpoint.indexOf(endpoints.videoDownload) > -1) {
-    console.log(await response.blob());
+    return response.blob();
+  } else {
+    return response.json();
   }
-  return response.json();
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -100,6 +100,7 @@ $(document).ready(async function () {
   videoDialog.dialog({
     autoOpen: false,
     modal: true,
+    height: '50%',
     closeOnEscape: true,
     beforeClose: function () {
       videoDialog.html('');
@@ -302,9 +303,9 @@ $(document).ready(async function () {
     for (const upload of uploads) {
       html += `<tr>
         <td>${upload.id}</td>
-        <td><button onclick="showVideo('${upload.id}' id="watch${
-        upload.id
-      }");">Watch</button></td>
+        <td><button onclick="showVideo('${
+          upload.id
+        }');" class="watch">Watch</button></td>
         <td>${upload.appname}</td>
         <td>${getFormattedDate(upload.start)}</td>
         <td>${getFormattedDate(upload.end)}</td>
@@ -343,22 +344,24 @@ function getDatetime(date, time, now = new Date()) {
  *
  */
 async function showVideo(id) {
-  //const button = $(`#watch${id}`)
-  //button.prop('disabled', true);
+  const button = $(`.watch`);
+  button.prop('disabled', true);
+
   const url = `${HOSTURL}/${endpoints.videoDownload}/${71 || id}`;
-  const video = await call(url, {
+  const blob = await call(url, {
     _overrideUrl: true,
   });
-  console.log(video);
-  //button.prop('disabled', false);
+
+  const src = URL.createObjectURL(blob);
   const videoDialog = $('#video-dialog');
   videoDialog.html(`<video controls>
-  <source src="${url}" type="video/mp4">
+  <source src="${src}" type="video/mp4">
   Your browser does not support the video tag.
   </video>
   <br />
   <a href="${url}">Download</a>`);
   videoDialog.dialog('open');
+  button.prop('disabled', false);
 }
 
 /**
