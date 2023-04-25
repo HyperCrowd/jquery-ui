@@ -27,21 +27,7 @@ Keep in mind that you are going to get filebytes as a blob array.
 ## Login page enhancements
 
 
-Please then use have two columns so that users can click through the docs backend endpoints sections. Like this:
 
-+-------------------+--------------------------------------------------+
-| | Looking for the backend endpoints? |
-| | Go here: |
-| [Login] | (href) /docs . |
-| | |
-| email: [_____] | |
-| Password: [_____] | |
-| | |
-| | |
-| | |
-| | |
-| | |
-+-------------------+--------------------------------------------------+
 
 Yes, I'm going to ask you to put in the email field now. Just leave it as a no-op and accept any valid email for now.
 This is in response to the demo where the stakeholder wanted to have email/password validation. I told them that it

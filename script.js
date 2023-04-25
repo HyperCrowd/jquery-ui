@@ -55,10 +55,13 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
   return response.json();
 }
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 $(document).ready(async function () {
   const loginForm = $('#login-form');
   const accordion = $('#accordion');
   const password = $('#password');
+  const email = $('#email');
   const listUsers = $('#listUsers');
   const listUploads = $('#listUploads');
 
@@ -67,9 +70,15 @@ $(document).ready(async function () {
 
   // Login
   loginForm.find('form').on('submit', async function (event) {
-    //
+    console.log('wat');
     event.preventDefault();
-    const loggedIn = await login(password.val());
+
+    const emailVal = email.val();
+    if (emailRegex.test(emailVal) === false) {
+      return;
+    }
+
+    const loggedIn = await login(emailVal, password.val());
 
     if (loggedIn) {
       console.log(loggedIn);
@@ -79,6 +88,7 @@ $(document).ready(async function () {
     }
   });
   password.val(sessionStorage.getItem('absolutelyNotAPassword'));
+  email.val(sessionStorage.getItem('absolutelyNotAnEmail'));
 
   // Video Dialog
   const videoDialog = $('#video-dialog');
@@ -364,14 +374,16 @@ function isLoggedIn() {
 /**
  *
  */
-async function login(password) {
+async function login(email, password) {
   // @TODO am I passing up a password here or something?
   const result = await call(endpoints.loggedInOperator, {}, 'GET', {
     'x-api-key': password,
   });
 
   if (result && result.ok === true) {
+    sessionStorage.setItem('absolutelyNotAnEmail', email);
     sessionStorage.setItem('absolutelyNotAPassword', password);
+
     return true;
   } else {
     $('#password').val('').prop('placeholder', 'Bad Password, try again');
