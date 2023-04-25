@@ -31,27 +31,119 @@
     <div id="layout">
       <!-- stop time here -->
       <div class="logo"></div>
-      <div class="notLoggedIn">
-        <p>Go</p>
-      </div>
 
       <div id="main">
-        <div id="loggedIn">
-          <!-- accordion -->
-          <div id="accordion">
-            <h3>List Users</h3>
-            <div class="dark darkText">
+        <!-- accordion -->
+        <div id="accordion">
+          <h3>Login</h3>
+          <div class="dark darkText">
+            <div id="login-form">
+              <form>
+                <input
+                  placeholder="Password"
+                  type="password"
+                  id="password"
+                  name="password"
+                  autocomplete="on"
+                  class="time"
+                /><br /><br />
+
+                <input type="submit" value="Log in" class="button-success"/>
+              </form>
+            </div>
+          </div>
+          <h3>List Users</h3>
+          <div class="dark darkText">
+            <div>
+              Start Date:
+              <input
+                type="text"
+                id="userStartDate"
+                class="time"
+                placeholder="Optional"
+              />
+              <input
+                type="text"
+                id="userStartTime"
+                class="time"
+                placeholder="Optional"
+              />
+            </div>
+            <br />
+            <div>
+              End Date:
+              <input
+                type="text"
+                id="userEndDate"
+                class="time"
+                placeholder="Optional"
+              />
+              <input
+                type="text"
+                id="userEndTime"
+                class="time"
+                placeholder="Optional"
+              />
+            </div>
+            <br />
+            <button class="button-success pure-button" id="listUsers">
+              Search
+            </button>
+            <table id="userResults">
+              <thead>
+                <tr>
+                  <th>UID</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <h3>List Uploads</h3>
+          <div class="dark darkText">
+            <div>
+              <div>
+                Count:
+                <input
+                  type="text"
+                  id="uploadsCount"
+                  class="time"
+                  value="100"
+                />
+              </div>
+              <br />
+              <div>
+                UID:
+                <input
+                  type="text"
+                  id="uploadsUid"
+                  class="time"
+                  placeholder="Optional"
+                />
+              </div>
+              <br />
+              <div>
+                Appname:
+                <input
+                  type="text"
+                  id="uploadsAppname"
+                  class="time"
+                  placeholder="Optional"
+                />
+              </div>
+              <br />
               <div>
                 Start Date:
                 <input
                   type="text"
-                  id="userStartDate"
+                  id="uploadsStartDate"
                   class="time"
                   placeholder="Optional"
                 />
                 <input
                   type="text"
-                  id="userStartTime"
+                  id="uploadsStartTime"
                   class="time"
                   placeholder="Optional"
                 />
@@ -61,135 +153,37 @@
                 End Date:
                 <input
                   type="text"
-                  id="userEndDate"
+                  id="uploadsEndDate"
                   class="time"
                   placeholder="Optional"
                 />
                 <input
                   type="text"
-                  id="userEndTime"
+                  id="uploadsEndTime"
                   class="time"
                   placeholder="Optional"
                 />
               </div>
               <br />
-              <button class="button-success pure-button" id="listUsers">
+              <button class="button-success pure-button" id="listUploads">
                 Search
               </button>
-              <table id="userResults">
+              <table id="uploadResults">
                 <thead>
                   <tr>
-                    <th>UID</th>
-                    <th>Created</th>
+                    <th>ID</th>
+                    <th>URI</th>
+                    <th>Appname</th>
+                    <th>Start</th>
+                    <th>End</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
               </table>
             </div>
-
-            <h3>List Uploads</h3>
-            <div class="dark darkText">
-              <div>
-                <div>
-                  Count:
-                  <input
-                    type="text"
-                    id="uploadsCount"
-                    class="time"
-                    value="100"
-                  />
-                </div>
-                <br />
-                <div>
-                  UID:
-                  <input
-                    type="text"
-                    id="uploadsUid"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                </div>
-                <br />
-                <div>
-                  Appname:
-                  <input
-                    type="text"
-                    id="uploadsAppname"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                </div>
-                <br />
-                <div>
-                  Start Date:
-                  <input
-                    type="text"
-                    id="uploadsStartDate"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                  <input
-                    type="text"
-                    id="uploadsStartTime"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                </div>
-                <br />
-                <div>
-                  End Date:
-                  <input
-                    type="text"
-                    id="uploadsEndDate"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                  <input
-                    type="text"
-                    id="uploadsEndTime"
-                    class="time"
-                    placeholder="Optional"
-                  />
-                </div>
-                <br />
-                <button class="button-success pure-button" id="listUploads">
-                  Search
-                </button>
-                <table id="uploadResults">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>URI</th>
-                      <th>Appname</th>
-                      <th>Start</th>
-                      <th>End</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
-            </div>
           </div>
         </div>
-
-        <div id="menu" class="notLoggedIn">
-          <!-- Login  -->
-          <div id="login-form">
-            <form>
-              <input
-                placeholder="Password"
-                type="password"
-                id="password"
-                name="password"
-                autocomplete="on"
-                class="time"
-              /><br /><br />
-
-              <input type="submit" value="Log in" class="button-success"/>
-            </form>
-          </div>           
-        </div>
-    </div>
+      </div>
 
     <!-- video dialog -->
     <div id="video-dialog"></div>

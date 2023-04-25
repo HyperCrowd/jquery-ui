@@ -56,8 +56,6 @@ async function call(endpoint, params = {}, method = 'GET', headers = {}) {
 }
 
 $(document).ready(async function () {
-  const app = $('#loggedIn');
-  const landing = $('.notLoggedIn');
   const loginForm = $('#login-form');
   const accordion = $('#accordion');
   const password = $('#password');
@@ -74,11 +72,9 @@ $(document).ready(async function () {
     const loggedIn = await login(password.val());
 
     if (loggedIn) {
-      landing.addClass('movingLeft').on('animationend', function () {
-        $(this).hide();
-      });
-      app.addClass('fadingIn').on('animationend', function () {
-        $(this).show();
+      console.log(loggedIn);
+      accordion.accordion({
+        active: 1,
       });
     }
   });
