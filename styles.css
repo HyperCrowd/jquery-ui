@@ -3,6 +3,14 @@ html,
   background-color: #020e15;
 }
 
+/* unvisited link */
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #79945a;
+}
+
 .darkText {
   color: lightgray;
 }
@@ -62,14 +70,10 @@ html,
   background: #191818;
   overflow-y: auto;
 }
-/*
-#login-form {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.docs {
+  text-align: right;
 }
-*/
 #loggedIn {
   opacity: 0;
 }

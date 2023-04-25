@@ -26,10 +26,6 @@ Keep in mind that you are going to get filebytes as a blob array.
 
 ## Login page enhancements
 
-In the original document I specified that the Login page was should be the first accordion UI element.
-Right now it's its own splash screen.
-
-Please move login to the first ui element.
 
 Please then use have two columns so that users can click through the docs backend endpoints sections. Like this:
 
