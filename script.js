@@ -100,14 +100,18 @@ $(document).ready(async function () {
   videoDialog.dialog({
     autoOpen: false,
     modal: true,
-    height: '50%',
+    height: 'auto',
     closeOnEscape: true,
     beforeClose: function () {
       videoDialog.html('');
     },
     open: function () {
-      var contentWidth = $(this).find('.ui-dialog-content').width();
-      $(this).dialog('option', 'width', contentWidth + 100);
+      //var contentWidth = $(this).find('.ui-dialog-content').width();
+      //$(this).dialog('option', 'width', contentWidth + 100);
+      $('#player').css({
+        display: 'block',
+        margin: 'auto', // center the video element horizontally
+      });
     },
   });
 
@@ -354,12 +358,12 @@ async function showVideo(id) {
 
   const src = URL.createObjectURL(blob);
   const videoDialog = $('#video-dialog');
-  videoDialog.html(`<video controls>
+  videoDialog.html(`<video id="player" height="500" controls autoplay>
   <source src="${src}" type="video/mp4">
   Your browser does not support the video tag.
   </video>
   <br />
-  <a href="${url}">Download</a>`);
+  <a href="${src}">Download</a>`);
   videoDialog.dialog('open');
   button.prop('disabled', false);
 }
