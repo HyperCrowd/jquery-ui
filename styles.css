@@ -162,6 +162,10 @@ table th {
   color: white;
 }
 
+table tr:nth-child(even) {
+  background-color: #1d2d2a;
+}
+
 .logo {
   background-repeat: no-repeat;
   background-position: center;
